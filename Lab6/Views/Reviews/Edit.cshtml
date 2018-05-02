@@ -1,0 +1,45 @@
+﻿@model Lab6.Models.Reviews
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit Review for:</h2>
+
+<h4>"@ViewData["mTitle"]"</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Reviewer Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieReview" class="control-label">Movie Review</label>
+                <textarea asp-for="MovieReview" class="form-control"></textarea>
+                <span asp-validation-for="MovieReview" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="MovieID" class="form-control" type="hidden"/>
+                <!--<span asp-validation-for="MovieID" class="text-danger"></span>-->
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success" />
+                <a class="btn btn-danger" asp-controller="Movies" asp-action="Details" asp-route-id="@ViewData["mID"]">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-default" asp-controller="Reviews" asp-action="Index">Back to Reviews</a> |
+    <a class="btn btn-default" asp-controller="Movies" asp-action="Index">Back to Movies</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

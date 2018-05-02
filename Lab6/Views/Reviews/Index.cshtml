@@ -1,0 +1,50 @@
+﻿@model Lab6.Models.MovieReview
+
+@{
+    ViewData["Title"] = "Index";
+}
+<p>
+<h2>Reviews</h2>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Reviewer</a>
+</th>
+                <th>
+                    Comment
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["MovieSortParm"]">Movie</a>
+</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.MReview.review) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieReview)
+            </td>
+            <td>
+                @foreach (var i in Model.MGenre.movies)
+                {
+                    if (i.ID == item.MovieID)
+                    {
+                        @Html.DisplayFor(modelItem => i.Title)
+                    }
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-sm btn-default">Edit</a> |
+                <!--<a asp-action="Details" asp-route-id="@item.ID">Details</a>--> 
+                <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-sm btn-default">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

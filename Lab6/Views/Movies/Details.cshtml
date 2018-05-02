@@ -1,0 +1,82 @@
+﻿
+@model Lab6.Models.ReviewList
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Movie Details</h2>
+
+<div>
+    <h4>"@Model.movie.Title"</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.movie.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.movie.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.movie.ReleaseDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.movie.ReleaseDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.movie.Genre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.movie.Genre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.movie.Rating)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.movie.Rating)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.movie.Price)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.movie.Price)
+        </dd>
+    </dl>
+</div>
+<table>
+    <tbody>
+        <tr>
+            <th>
+                <h3>Reviews</h3>
+            </th>
+        </tr>
+        @foreach (var review in Model.review)
+        {
+            if (review.MovieID == Model.movie.ID)
+            {
+                <tr>
+                    <td>
+                        <p>@review.MovieReview</p>
+                        - @review.Name
+                        <hr />
+                    </td>
+                    <td>
+                        <a class="btn btn-xs btn-default" asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.ID">Edit Review</a>
+                        <a class="btn btn-xs btn-default" asp-controller="Reviews" asp-action="Delete" asp-route-id="@review.ID">Delete Review</a>
+                    </td>
+                    @{
+                        review.MovieID = (int)ViewData["mID"];
+                    }
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<div>
+    <a class="btn btn-lg btn-info" asp-controller="Reviews" asp-action="Create" asp-route-id="@ViewData["mID"]">Write a Review</a>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.movie.ID" class="btn btn-sm btn-default">Edit Movie</a> |
+    <a asp-action="Index" class="btn btn-sm btn-default">Back to Movie List</a>
+</div>
